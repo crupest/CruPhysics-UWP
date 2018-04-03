@@ -173,6 +173,58 @@ namespace Chipmunk
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern cpFloat cpAreaForPoly(int count, cpVect[] verts, cpFloat radius);
     }
+
+    public static class ShapeFuncs
+    {
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpFloat cpShapeGetElasticity(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpShapeSetElasticity(IntPtr shape, cpFloat value);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpFloat cpShapeGetFriction(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpShapeSetFriction(IntPtr shape, cpFloat value);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpShapeGetSurfaceVelocity(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpShapeSetSurfaceVelocity(IntPtr shape, cpVect value);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpShapeFree(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpCircleShapeNew(IntPtr body, cpFloat radius, cpVect offset);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpCircleShapeGetOffset(IntPtr circleShape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpFloat cpCircleShapeGetRadius(IntPtr circleShape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpSegmentShapeNew(IntPtr body, cpVect a, cpVect b, cpFloat radius);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpSegmentShapeGetA(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpSegmentShapeGetB(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpSegmentShapeGetNormal(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpFloat cpSegmentShapeGetRadius(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpSegmentShapeSetNeighbors(IntPtr shape, cpVect prev, cpVect next);
+
+    }
 }
 
 #pragma warning restore IDE1006 // Naming Styles

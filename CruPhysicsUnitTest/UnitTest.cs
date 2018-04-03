@@ -80,5 +80,69 @@ namespace CruPhysicsUnitTest
                 BodyFuncs.cpBodyFree(ptr);
             }
         }
+
+        [Test]
+        public class ShapeUnitTest : IDisposable
+        {
+            private readonly IntPtr body;
+
+            public ShapeUnitTest()
+            {
+                body = BodyFuncs.cpBodyNew(0, 0);
+            }
+
+            [Test]
+            public void CircleShapeTest()
+            {
+                var circle = ShapeFuncs.cpCircleShapeNew(body, 10, new Vector2D(10, 10));
+
+                Assert.Equal(new Vector2D(10, 10), ShapeFuncs.cpCircleShapeGetOffset(circle));
+                Assert.Equal(10, ShapeFuncs.cpCircleShapeGetRadius(circle), 8);
+
+                ShapeFuncs.cpShapeFree(circle);
+            }
+
+            [Test]
+            public void SegmentShapeTest()
+            {
+                var a = new Vector2D(10, 10);
+                var b = new Vector2D(20, 20);
+                var segment = ShapeFuncs.cpSegmentShapeNew(body, a, b, 1);
+
+                Assert.Equal(a, ShapeFuncs.cpSegmentShapeGetA(segment));
+                Assert.Equal(b, ShapeFuncs.cpSegmentShapeGetB(segment));
+                ShapeFuncs.cpSegmentShapeGetNormal(segment);
+                Assert.Equal(1, ShapeFuncs.cpSegmentShapeGetRadius(segment));
+
+                ShapeFuncs.cpSegmentShapeSetNeighbors(segment, new Vector2D(0, 0), new Vector2D(30, 30));
+
+                ShapeFuncs.cpShapeFree(segment);
+            }
+
+            [Test]
+            public void ShapeTest()
+            {
+                var shape = ShapeFuncs.cpCircleShapeNew(body, 10, new Vector2D(10, 10));
+
+                //Elasticity
+                ShapeFuncs.cpShapeSetElasticity(shape, 1);
+                Assert.Equal(1, ShapeFuncs.cpShapeGetElasticity(shape));
+
+                //Friction
+                ShapeFuncs.cpShapeSetFriction(shape, 1);
+                Assert.Equal(1, ShapeFuncs.cpShapeGetFriction(shape));
+
+                //Surface velocity
+                ShapeFuncs.cpShapeSetSurfaceVelocity(shape, new Vector2D(1, 0));
+                Assert.Equal(new Vector2D(1, 0), ShapeFuncs.cpShapeGetSurfaceVelocity(shape));
+
+                ShapeFuncs.cpShapeFree(shape);
+            }
+
+            public void Dispose()
+            {
+                BodyFuncs.cpBodyFree(body);
+            }
+        }
     }
 }

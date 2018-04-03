@@ -106,6 +106,48 @@ namespace Chipmunk
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void cpBodySetTorque(IntPtr body, cpFloat torque);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpBodyLocalToWorld(IntPtr body, cpVect v);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpBodyWorldToLocal(IntPtr body, cpVect v);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpBodyGetVelocityAtWorldPoint(IntPtr body, cpVect point);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpBodyGetVelocityAtLocalPoint(IntPtr body, cpVect point);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpBodyApplyForceAtWorldPoint(IntPtr body, cpVect force, cpVect point);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpBodyApplyForceAtLocalPoint(IntPtr body, cpVect force, cpVect point);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpBodyApplyImpulseAtWorldPoint(IntPtr body, cpVect impulse, cpVect point);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpBodyApplyImpulseAtLocalPoint(IntPtr body, cpVect impulse, cpVect point);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void cpBodyShapeIteratorFunc(IntPtr body, IntPtr shape, IntPtr data);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpBodyEachShape(IntPtr body, cpBodyShapeIteratorFunc func, IntPtr data);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void cpBodyConstraintIteratorFunc(IntPtr body, IntPtr shape, IntPtr data);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpBodyEachConstraint(IntPtr body, cpBodyConstraintIteratorFunc func, IntPtr data);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void cpBodyArbiterIteratorFunc(IntPtr body, IntPtr shape, IntPtr data);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpBodyEachArbiter(IntPtr body, cpBodyArbiterIteratorFunc func, IntPtr data);
     }
 
     public static class MomentAreaFuncs

@@ -1,4 +1,6 @@
-﻿using Chipmunk;
+﻿using System;
+
+using Chipmunk;
 
 namespace CruPhysicsUnitTest
 {
@@ -55,6 +57,25 @@ namespace CruPhysicsUnitTest
                 //Torque
                 BodyFuncs.cpBodySetTorque(ptr, 20.0);
                 Assert.Equal(20.0, BodyFuncs.cpBodyGetTorque(ptr), precision);
+
+                //Coordinate conversion
+                BodyFuncs.cpBodyLocalToWorld(ptr, new Vector2D(0, 0));
+                BodyFuncs.cpBodyWorldToLocal(ptr, new Vector2D(0, 0));
+
+                //Velocity conversion
+                var vl = BodyFuncs.cpBodyGetVelocityAtLocalPoint(ptr, new Vector2D(0, 0));
+                var vw = BodyFuncs.cpBodyGetVelocityAtWorldPoint(ptr, new Vector2D(0, 0));
+
+                //Apply force and torque
+                BodyFuncs.cpBodyApplyForceAtLocalPoint(ptr, new Vector2D(10, 0), new Vector2D(0, 0));
+                BodyFuncs.cpBodyApplyForceAtWorldPoint(ptr, new Vector2D(10, 0), new Vector2D(0, 0));
+                BodyFuncs.cpBodyApplyImpulseAtLocalPoint(ptr, new Vector2D(10, 0), new Vector2D(0, 0));
+                BodyFuncs.cpBodyApplyImpulseAtWorldPoint(ptr, new Vector2D(10, 0), new Vector2D(0, 0));
+
+                //Iterators
+                BodyFuncs.cpBodyEachShape(ptr, (body, shape, data) => { }, IntPtr.Zero);
+                BodyFuncs.cpBodyEachConstraint(ptr, (body, constraint, data) => { }, IntPtr.Zero);
+                BodyFuncs.cpBodyEachArbiter(ptr, (body, arbiter, data) => { }, IntPtr.Zero);
 
                 BodyFuncs.cpBodyFree(ptr);
             }

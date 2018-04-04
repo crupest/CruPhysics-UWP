@@ -120,6 +120,32 @@ namespace CruPhysicsUnitTest
             }
 
             [Test]
+            public void PolygonShapeTest()
+            {
+                var vertices = new Vector2D[3] {
+                    new Vector2D(0,0),
+                    new Vector2D(10, 10),
+                    new Vector2D(10, 0)
+                };
+
+                var polygon = ShapeFuncs.cpPolyShapeNew(body, vertices.Length, vertices, Transform.Indentity, 0.0);
+                var box1 = ShapeFuncs.cpBoxShapeNew(body, 10, 10, 0);
+                var box2 = ShapeFuncs.cpBoxShapeNew2(body, new AABB(0, 0, 10, 10), 0);
+
+                Assert.Equal(3, ShapeFuncs.cpPolyShapeGetCount(polygon));
+
+                //Don't compare with the vectors in vertices beacause the actual order of vertices may be changed.
+                for (int i = 0; i < vertices.Length; i++)
+                    ShapeFuncs.cpPolyShapeGetVert(polygon, i);
+
+                Assert.Equal(0.0, ShapeFuncs.cpPolyShapeGetRadius(polygon), 8);
+
+                ShapeFuncs.cpShapeFree(polygon);
+                ShapeFuncs.cpShapeFree(box1);
+                ShapeFuncs.cpShapeFree(box2);
+            }
+
+            [Test]
             public void ShapeTest()
             {
                 var shape = ShapeFuncs.cpCircleShapeNew(body, 10, new Vector2D(10, 10));
@@ -135,6 +161,14 @@ namespace CruPhysicsUnitTest
                 //Surface velocity
                 ShapeFuncs.cpShapeSetSurfaceVelocity(shape, new Vector2D(1, 0));
                 Assert.Equal(new Vector2D(1, 0), ShapeFuncs.cpShapeGetSurfaceVelocity(shape));
+
+                //Mass
+                ShapeFuncs.cpShapeSetMass(shape, 10);
+                Assert.Equal(10, ShapeFuncs.cpShapeGetMass(shape), 8);
+
+                //Density
+                ShapeFuncs.cpShapeSetDensity(shape, 1);
+                Assert.Equal(1, ShapeFuncs.cpShapeGetDensity(shape), 8);
 
                 ShapeFuncs.cpShapeFree(shape);
             }

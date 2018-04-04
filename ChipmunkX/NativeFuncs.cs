@@ -7,6 +7,8 @@ namespace Chipmunk
 {
     using cpFloat = Double;
     using cpVect = Vector2D;
+    using cpBB = AABB;
+    using cpTransform = Transform;
 
     public static class BaseInfo
     {
@@ -24,6 +26,46 @@ namespace Chipmunk
 
         public cpFloat x;
         public cpFloat y;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct AABB
+    {
+        public AABB(double left, double bottom, double right, double top)
+        {
+            this.left = left;
+            this.bottom = bottom;
+            this.right = right;
+            this.top = top;
+        }
+
+        public cpFloat left;
+        public cpFloat bottom;
+        public cpFloat right;
+        public cpFloat top;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Transform
+    {
+        public static readonly Transform Indentity = new Transform(1, 0, 0, 1, 0, 0);
+
+        public Transform(cpFloat a, cpFloat b, cpFloat c, cpFloat d, cpFloat tx, cpFloat ty)
+        {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.d = d;
+            this.tx = tx;
+            this.ty = ty;
+        }
+
+        public cpFloat a;
+        public cpFloat b;
+        public cpFloat c;
+        public cpFloat d;
+        public cpFloat tx;
+        public cpFloat ty;
     }
 
     public enum BodyType : int
@@ -224,6 +266,35 @@ namespace Chipmunk
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void cpSegmentShapeSetNeighbors(IntPtr shape, cpVect prev, cpVect next);
 
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpPolyShapeNew(IntPtr body, int numVerts, cpVect[] verts, cpTransform transform, cpFloat radius);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cpPolyShapeGetCount(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpPolyShapeGetVert(IntPtr shape, int index);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpFloat cpPolyShapeGetRadius(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpBoxShapeNew(IntPtr body, cpFloat width, cpFloat height, cpFloat radius);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpBoxShapeNew2(IntPtr body, cpBB box, cpFloat radius);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpFloat cpShapeGetMass(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpShapeSetMass(IntPtr shape, cpFloat mass);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpFloat cpShapeGetDensity(IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpShapeSetDensity(IntPtr shape, cpFloat density);
     }
 }
 

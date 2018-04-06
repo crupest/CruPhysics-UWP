@@ -14,6 +14,7 @@ namespace CruPhysicsUnitTest.UnitTest
         {
             //New and free.
             var ptr = BodyFuncs.cpBodyNew(20.0, 10.0);
+            BodyFuncs.cpBodyFree(BodyFuncs.cpBodyNewKinematic());
             BodyFuncs.cpBodyFree(BodyFuncs.cpBodyNewStatic());
 
             //Type

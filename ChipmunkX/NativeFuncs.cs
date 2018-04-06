@@ -81,6 +81,9 @@ namespace ChipmunkX.Native
         public static extern void cpBodyFree(IntPtr body);
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpBodyNewKinematic();
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cpBodyNewStatic();
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]

@@ -65,7 +65,7 @@ namespace ChipmunkX.Native
         public cpFloat ty;
     }
 
-    public enum BodyType : int
+    public enum cpBodyType : int
     {
         Dynamic,
         Kinematic,
@@ -84,10 +84,10 @@ namespace ChipmunkX.Native
         public static extern IntPtr cpBodyNewStatic();
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern BodyType cpBodyGetType(IntPtr body);
+        public static extern cpBodyType cpBodyGetType(IntPtr body);
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cpBodySetType(IntPtr body, BodyType type);
+        public static extern void cpBodySetType(IntPtr body, cpBodyType type);
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cpBodyGetSpace(IntPtr body);

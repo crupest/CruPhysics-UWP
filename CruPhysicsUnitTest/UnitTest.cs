@@ -17,8 +17,8 @@ namespace CruPhysicsUnitTest.UnitTest
             BodyFuncs.cpBodyFree(BodyFuncs.cpBodyNewStatic());
 
             //Type
-            BodyFuncs.cpBodySetType(ptr, BodyType.Dynamic);
-            Assert.Equal(BodyType.Dynamic, BodyFuncs.cpBodyGetType(ptr));
+            BodyFuncs.cpBodySetType(ptr, cpBodyType.Dynamic);
+            Assert.Equal(cpBodyType.Dynamic, BodyFuncs.cpBodyGetType(ptr));
 
             //Mass
             BodyFuncs.cpBodySetMass(ptr, 20.0);

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 #pragma warning disable IDE1006 // Naming Styles
 
-namespace Chipmunk
+namespace ChipmunkX
 {
     namespace Native
     {

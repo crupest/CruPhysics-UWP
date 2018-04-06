@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Chipmunk.Native;
+using ChipmunkX.Native;
 
 namespace CruPhysicsUnitTest
 {

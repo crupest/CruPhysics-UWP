@@ -296,6 +296,48 @@ namespace Chipmunk
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void cpShapeSetDensity(IntPtr shape, cpFloat density);
     }
+
+    public static class SpaceFuncs
+    {
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpVect cpSpaceGetGravity(IntPtr space);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpSpaceSetGravity(IntPtr space, cpVect value);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern cpFloat cpSpaceGetDamping(IntPtr space);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpSpaceSetDamping(IntPtr space, cpFloat value);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpSpaceNew();
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpSpaceFree(IntPtr space);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpSpaceAddShape(IntPtr space, IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpSpaceAddBody(IntPtr space, IntPtr body);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpSpaceAddConstraint(IntPtr space, IntPtr constraint);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpSpaceRemoveShape(IntPtr space, IntPtr shape);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpSpaceRemoveBody(IntPtr space, IntPtr body);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpSpaceRemoveConstraint(IntPtr space, IntPtr constraint);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cpSpaceStep(IntPtr space, cpFloat dt);
+    }
 }
 
 #pragma warning restore IDE1006 // Naming Styles

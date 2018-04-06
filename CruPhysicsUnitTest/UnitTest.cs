@@ -7,7 +7,7 @@ namespace CruPhysicsUnitTest
     namespace UnitTest
     {
         [Test]
-        public class BodyUnitTest
+        public class BodyFuncsUnitTest
         {
             private const int precision = 8;
 
@@ -82,11 +82,11 @@ namespace CruPhysicsUnitTest
         }
 
         [Test]
-        public class ShapeUnitTest : IDisposable
+        public class ShapeFuncsUnitTest : IDisposable
         {
             private readonly IntPtr body;
 
-            public ShapeUnitTest()
+            public ShapeFuncsUnitTest()
             {
                 body = BodyFuncs.cpBodyNew(0, 0);
             }
@@ -176,6 +176,36 @@ namespace CruPhysicsUnitTest
             public void Dispose()
             {
                 BodyFuncs.cpBodyFree(body);
+            }
+        }
+
+        [Test]
+        public class SpaceFuncsUnitTest
+        {
+            [Test]
+            public void SpaceTest()
+            {
+                var ptr = SpaceFuncs.cpSpaceNew();
+
+                //Gravity
+                SpaceFuncs.cpSpaceSetGravity(ptr, new Vector2D(0.0, -9.8));
+                Assert.Equal(new Vector2D(0.0, -9.8), SpaceFuncs.cpSpaceGetGravity(ptr));
+
+                //Damping
+                SpaceFuncs.cpSpaceSetDamping(ptr, 0.95);
+                Assert.Equal(0.95, SpaceFuncs.cpSpaceGetDamping(ptr), 8);
+
+                var body = BodyFuncs.cpBodyNewStatic();
+                SpaceFuncs.cpSpaceAddBody(ptr, body);
+                var shape = ShapeFuncs.cpBoxShapeNew(body, 10, 10, 0);
+                SpaceFuncs.cpSpaceAddShape(ptr, shape);
+                SpaceFuncs.cpSpaceRemoveShape(ptr, shape);
+                SpaceFuncs.cpSpaceRemoveBody(ptr, body);
+
+                //Step
+                SpaceFuncs.cpSpaceStep(ptr, 1.0 / 60.0);
+
+                SpaceFuncs.cpSpaceFree(ptr);
             }
         }
     }

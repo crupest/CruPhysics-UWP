@@ -106,9 +106,13 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ChipmunkX.cs" />
+    <Compile Include="Body.cs" />
+    <Compile Include="ChipmunkObject.cs" />
+    <Compile Include="Shape.cs" />
+    <Compile Include="Space.cs" />
     <Compile Include="NativeFuncs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vector2D.cs" />
     <EmbeddedResource Include="Properties\ChipmunkX.rd.xml" />
   </ItemGroup>
   <ItemGroup>

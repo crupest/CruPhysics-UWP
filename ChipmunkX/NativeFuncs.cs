@@ -8,9 +8,6 @@ namespace ChipmunkX
     namespace Native
     {
         using cpFloat = Double;
-        using cpVect = Vector2D;
-        using cpBB = AABB;
-        using cpTransform = Transform;
 
         public static class BaseInfo
         {
@@ -18,9 +15,9 @@ namespace ChipmunkX
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct Vector2D
+        public struct cpVect
         {
-            public Vector2D(cpFloat x, cpFloat y)
+            public cpVect(cpFloat x, cpFloat y)
             {
                 this.x = x;
                 this.y = y;
@@ -31,9 +28,9 @@ namespace ChipmunkX
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct AABB
+        public struct cpBB
         {
-            public AABB(double left, double bottom, double right, double top)
+            public cpBB(double left, double bottom, double right, double top)
             {
                 this.left = left;
                 this.bottom = bottom;
@@ -48,11 +45,11 @@ namespace ChipmunkX
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct Transform
+        public struct cpTransform
         {
-            public static readonly Transform Indentity = new Transform(1, 0, 0, 1, 0, 0);
+            public static readonly cpTransform Indentity = new cpTransform(1, 0, 0, 1, 0, 0);
 
-            public Transform(cpFloat a, cpFloat b, cpFloat c, cpFloat d, cpFloat tx, cpFloat ty)
+            public cpTransform(cpFloat a, cpFloat b, cpFloat c, cpFloat d, cpFloat tx, cpFloat ty)
             {
                 this.a = a;
                 this.b = b;

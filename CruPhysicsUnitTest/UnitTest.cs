@@ -31,20 +31,20 @@ namespace CruPhysicsUnitTest
                 Assert.Equal(10.0, BodyFuncs.cpBodyGetMoment(ptr), precision);
 
                 //Position
-                BodyFuncs.cpBodySetPosition(ptr, new Vector2D(20.0, 20.0));
-                Assert.Equal(new Vector2D(20.0, 20.0), BodyFuncs.cpBodyGetPosition(ptr));
+                BodyFuncs.cpBodySetPosition(ptr, new cpVect(20.0, 20.0));
+                Assert.Equal(new cpVect(20.0, 20.0), BodyFuncs.cpBodyGetPosition(ptr));
 
                 //Center of gravity.
-                BodyFuncs.cpBodySetCenterOfGravity(ptr, new Vector2D(20.0, 20.0));
-                Assert.Equal(new Vector2D(20.0, 20.0), BodyFuncs.cpBodyGetCenterOfGravity(ptr));
+                BodyFuncs.cpBodySetCenterOfGravity(ptr, new cpVect(20.0, 20.0));
+                Assert.Equal(new cpVect(20.0, 20.0), BodyFuncs.cpBodyGetCenterOfGravity(ptr));
 
                 //Velocity
-                BodyFuncs.cpBodySetVelocity(ptr, new Vector2D(20.0, 20.0));
-                Assert.Equal(new Vector2D(20.0, 20.0), BodyFuncs.cpBodyGetVelocity(ptr));
+                BodyFuncs.cpBodySetVelocity(ptr, new cpVect(20.0, 20.0));
+                Assert.Equal(new cpVect(20.0, 20.0), BodyFuncs.cpBodyGetVelocity(ptr));
 
                 //Force
-                BodyFuncs.cpBodySetForce(ptr, new Vector2D(20.0, 20.0));
-                Assert.Equal(new Vector2D(20.0, 20.0), BodyFuncs.cpBodyGetForce(ptr));
+                BodyFuncs.cpBodySetForce(ptr, new cpVect(20.0, 20.0));
+                Assert.Equal(new cpVect(20.0, 20.0), BodyFuncs.cpBodyGetForce(ptr));
 
                 //Angle
                 BodyFuncs.cpBodySetAngle(ptr, 20.0);
@@ -59,18 +59,18 @@ namespace CruPhysicsUnitTest
                 Assert.Equal(20.0, BodyFuncs.cpBodyGetTorque(ptr), precision);
 
                 //Coordinate conversion
-                BodyFuncs.cpBodyLocalToWorld(ptr, new Vector2D(0, 0));
-                BodyFuncs.cpBodyWorldToLocal(ptr, new Vector2D(0, 0));
+                BodyFuncs.cpBodyLocalToWorld(ptr, new cpVect(0, 0));
+                BodyFuncs.cpBodyWorldToLocal(ptr, new cpVect(0, 0));
 
                 //Velocity conversion
-                var vl = BodyFuncs.cpBodyGetVelocityAtLocalPoint(ptr, new Vector2D(0, 0));
-                var vw = BodyFuncs.cpBodyGetVelocityAtWorldPoint(ptr, new Vector2D(0, 0));
+                var vl = BodyFuncs.cpBodyGetVelocityAtLocalPoint(ptr, new cpVect(0, 0));
+                var vw = BodyFuncs.cpBodyGetVelocityAtWorldPoint(ptr, new cpVect(0, 0));
 
                 //Apply force and torque
-                BodyFuncs.cpBodyApplyForceAtLocalPoint(ptr, new Vector2D(10, 0), new Vector2D(0, 0));
-                BodyFuncs.cpBodyApplyForceAtWorldPoint(ptr, new Vector2D(10, 0), new Vector2D(0, 0));
-                BodyFuncs.cpBodyApplyImpulseAtLocalPoint(ptr, new Vector2D(10, 0), new Vector2D(0, 0));
-                BodyFuncs.cpBodyApplyImpulseAtWorldPoint(ptr, new Vector2D(10, 0), new Vector2D(0, 0));
+                BodyFuncs.cpBodyApplyForceAtLocalPoint(ptr, new cpVect(10, 0), new cpVect(0, 0));
+                BodyFuncs.cpBodyApplyForceAtWorldPoint(ptr, new cpVect(10, 0), new cpVect(0, 0));
+                BodyFuncs.cpBodyApplyImpulseAtLocalPoint(ptr, new cpVect(10, 0), new cpVect(0, 0));
+                BodyFuncs.cpBodyApplyImpulseAtWorldPoint(ptr, new cpVect(10, 0), new cpVect(0, 0));
 
                 //Iterators
                 BodyFuncs.cpBodyEachShape(ptr, (body, shape, data) => { }, IntPtr.Zero);
@@ -94,9 +94,9 @@ namespace CruPhysicsUnitTest
             [Test]
             public void CircleShapeTest()
             {
-                var circle = ShapeFuncs.cpCircleShapeNew(body, 10, new Vector2D(10, 10));
+                var circle = ShapeFuncs.cpCircleShapeNew(body, 10, new cpVect(10, 10));
 
-                Assert.Equal(new Vector2D(10, 10), ShapeFuncs.cpCircleShapeGetOffset(circle));
+                Assert.Equal(new cpVect(10, 10), ShapeFuncs.cpCircleShapeGetOffset(circle));
                 Assert.Equal(10, ShapeFuncs.cpCircleShapeGetRadius(circle), 8);
 
                 ShapeFuncs.cpShapeFree(circle);
@@ -105,8 +105,8 @@ namespace CruPhysicsUnitTest
             [Test]
             public void SegmentShapeTest()
             {
-                var a = new Vector2D(10, 10);
-                var b = new Vector2D(20, 20);
+                var a = new cpVect(10, 10);
+                var b = new cpVect(20, 20);
                 var segment = ShapeFuncs.cpSegmentShapeNew(body, a, b, 1);
 
                 Assert.Equal(a, ShapeFuncs.cpSegmentShapeGetA(segment));
@@ -114,7 +114,7 @@ namespace CruPhysicsUnitTest
                 ShapeFuncs.cpSegmentShapeGetNormal(segment);
                 Assert.Equal(1, ShapeFuncs.cpSegmentShapeGetRadius(segment));
 
-                ShapeFuncs.cpSegmentShapeSetNeighbors(segment, new Vector2D(0, 0), new Vector2D(30, 30));
+                ShapeFuncs.cpSegmentShapeSetNeighbors(segment, new cpVect(0, 0), new cpVect(30, 30));
 
                 ShapeFuncs.cpShapeFree(segment);
             }
@@ -122,15 +122,15 @@ namespace CruPhysicsUnitTest
             [Test]
             public void PolygonShapeTest()
             {
-                var vertices = new Vector2D[3] {
-                    new Vector2D(0,0),
-                    new Vector2D(10, 10),
-                    new Vector2D(10, 0)
+                var vertices = new cpVect[3] {
+                    new cpVect(0,0),
+                    new cpVect(10, 10),
+                    new cpVect(10, 0)
                 };
 
-                var polygon = ShapeFuncs.cpPolyShapeNew(body, vertices.Length, vertices, Transform.Indentity, 0.0);
+                var polygon = ShapeFuncs.cpPolyShapeNew(body, vertices.Length, vertices, cpTransform.Indentity, 0.0);
                 var box1 = ShapeFuncs.cpBoxShapeNew(body, 10, 10, 0);
-                var box2 = ShapeFuncs.cpBoxShapeNew2(body, new AABB(0, 0, 10, 10), 0);
+                var box2 = ShapeFuncs.cpBoxShapeNew2(body, new cpBB(0, 0, 10, 10), 0);
 
                 Assert.Equal(3, ShapeFuncs.cpPolyShapeGetCount(polygon));
 
@@ -148,7 +148,7 @@ namespace CruPhysicsUnitTest
             [Test]
             public void ShapeTest()
             {
-                var shape = ShapeFuncs.cpCircleShapeNew(body, 10, new Vector2D(10, 10));
+                var shape = ShapeFuncs.cpCircleShapeNew(body, 10, new cpVect(10, 10));
 
                 //Elasticity
                 ShapeFuncs.cpShapeSetElasticity(shape, 1);
@@ -159,8 +159,8 @@ namespace CruPhysicsUnitTest
                 Assert.Equal(1, ShapeFuncs.cpShapeGetFriction(shape));
 
                 //Surface velocity
-                ShapeFuncs.cpShapeSetSurfaceVelocity(shape, new Vector2D(1, 0));
-                Assert.Equal(new Vector2D(1, 0), ShapeFuncs.cpShapeGetSurfaceVelocity(shape));
+                ShapeFuncs.cpShapeSetSurfaceVelocity(shape, new cpVect(1, 0));
+                Assert.Equal(new cpVect(1, 0), ShapeFuncs.cpShapeGetSurfaceVelocity(shape));
 
                 //Mass
                 ShapeFuncs.cpShapeSetMass(shape, 10);
@@ -188,8 +188,8 @@ namespace CruPhysicsUnitTest
                 var ptr = SpaceFuncs.cpSpaceNew();
 
                 //Gravity
-                SpaceFuncs.cpSpaceSetGravity(ptr, new Vector2D(0.0, -9.8));
-                Assert.Equal(new Vector2D(0.0, -9.8), SpaceFuncs.cpSpaceGetGravity(ptr));
+                SpaceFuncs.cpSpaceSetGravity(ptr, new cpVect(0.0, -9.8));
+                Assert.Equal(new cpVect(0.0, -9.8), SpaceFuncs.cpSpaceGetGravity(ptr));
 
                 //Damping
                 SpaceFuncs.cpSpaceSetDamping(ptr, 0.95);

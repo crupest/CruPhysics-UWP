@@ -8,9 +8,6 @@ namespace ChipmunkX
     /// <summary>
     /// A world hold bodies, shapes and constraints.
     /// </summary>
-    /// <remarks>
-    /// It is disposable and the finalizer will automatically call <c>dispose</c>.
-    /// </remarks>
     public class Space : ChipmunkObject
     {
         private List<Body> _bodies = new List<Body>();
@@ -27,8 +24,8 @@ namespace ChipmunkX
         /// <summary>
         /// Get or set the gravity of the space.
         /// </summary>
-        /// <exception cref="ObjectDisposedException">
-        /// Throw if the space has been disposed of.
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the space has been disposed of.
         /// </exception>
         public Vector2D Gravity
         {
@@ -48,8 +45,8 @@ namespace ChipmunkX
         /// <summary>
         /// Get or set the damping of the space.
         /// </summary>
-        /// <exception cref="ObjectDisposedException">
-        /// Throw if the space has been disposed of.
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the space has been disposed of.
         /// </exception>
         public double Damping
         {
@@ -69,8 +66,8 @@ namespace ChipmunkX
         /// <summary>
         /// Get a readonly bodies list.
         /// </summary>
-        /// <exception cref="ObjectDisposedException">
-        /// Throw if the space has been disposed of.
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the space has been disposed of.
         /// </exception>
         public IReadOnlyList<Body> Bodies
         {

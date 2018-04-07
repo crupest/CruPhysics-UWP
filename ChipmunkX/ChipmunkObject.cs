@@ -14,25 +14,25 @@ namespace ChipmunkX
     /// </remarks>
     public abstract class ChipmunkObject : IDisposable
     {
-        protected IntPtr _ptr;
+        internal protected IntPtr _ptr;
 
 
         ~ChipmunkObject()
         {
-            DoDispose();
+            _DoDispose();
         }
 
         /// <summary>
-        /// Check whether the object has been disposed of.
-        /// If it is, then an exception will be thrown.
+        /// Check whether the object is valid and throw when it is not valid.
         /// </summary>
-        /// <exception cref="ObjectDisposedException">
-        /// Thrown when the object has been disposed.
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the object is not valid.
         /// </exception>
         protected void CheckValidation()
         {
-            if (IsDisposed)
-                throw new ObjectDisposedException(nameof(Space));
+            if (!IsValid)
+                throw new InvalidOperationException("The chipmunk object is not valid,"
+                  +  " which means it might have been disposed of or even haven't been created.");
         }
 
 
@@ -41,7 +41,7 @@ namespace ChipmunkX
         /// </summary>
         /// <remarks>
         /// The caller will set the <see cref="_ptr"/> to zero automatically so
-        /// you don't have to reset it in this function.
+        /// you don't have to reset it explicitly in this function.
         /// </remarks>
         protected abstract void DoDispose();
 
@@ -61,25 +61,25 @@ namespace ChipmunkX
         }
 
         /// <summary>
-        /// Dipose of the object and free the unmanaged resources.
+        /// Dipose of the object and free the unmanaged resources if there exist any.
         /// </summary>
         /// <remarks>
-        /// It is safe to call <c>Dispose</c> more than one times.
+        /// It is safe to call <see cref="Dispose"/> more than one times.
         /// </remarks>
         public void Dispose()
         {
-            DoDispose();
+            _DoDispose();
             GC.SuppressFinalize(this);
         }
 
         /// <summary>
-        /// True if the space has been diposed of and it is no longer valid. 
+        /// True if the object is valid. You can perform operation on it safely.
         /// </summary>
-        public bool IsDisposed => _ptr == IntPtr.Zero;
+        public bool IsValid => _ptr != IntPtr.Zero;
 
         /// <summary>
         /// Get the raw pointer of the unmanaged resource.
-        /// Return zero if the object has been disposed of.
+        /// Return zero if the object is invalid.
         /// </summary>
         public IntPtr RawHandle => _ptr;
     }

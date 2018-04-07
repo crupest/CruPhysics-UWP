@@ -270,6 +270,9 @@ namespace ChipmunkX.Native
         public static extern IntPtr cpPolyShapeNew(IntPtr body, int numVerts, cpVect[] verts, cpTransform transform, cpFloat radius);
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cpPolyShapeNewRaw(IntPtr body, int count, cpVect[] verts, cpFloat radius);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern int cpPolyShapeGetCount(IntPtr shape);
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
@@ -295,6 +298,9 @@ namespace ChipmunkX.Native
 
         [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void cpShapeSetDensity(IntPtr shape, cpFloat density);
+
+        [DllImport(BaseInfo.DllName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cpConvexHull(int count, cpVect[] verts, cpVect[] result, IntPtr first, cpFloat tol);
     }
 
     public static class SpaceFuncs

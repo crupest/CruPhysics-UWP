@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using ChipmunkX.Native;
+using ChipmunkX.Shapes;
 
 namespace ChipmunkX
 {
@@ -50,6 +51,13 @@ namespace ChipmunkX
     /// </summary>
     public class Body : ChipmunkObject
     {
+        private List<Shape> _shapes = new List<Shape>();
+
+
+        /// <summary>
+        /// Create a body with no shape and specified type.
+        /// </summary>
+        /// <param name="bodyType">Body type.</param>
         public Body(BodyType bodyType = BodyType.Dynamic)
         {
             switch (bodyType)
@@ -68,7 +76,54 @@ namespace ChipmunkX
             }
         }
 
-        protected override void DoDispose()
+
+        /// <summary>
+        /// Get or set the body type.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the body is not valid.
+        /// </exception>
+        public BodyType BodyType
+        {
+            get
+            {
+                CheckValidation();
+                return BodyTypeNativeHelper.FromNative(BodyFuncs.cpBodyGetType(_ptr));
+            }
+            set
+            {
+                CheckValidation();
+                BodyFuncs.cpBodySetType(_ptr, BodyTypeNativeHelper.ToNative(value));
+            }
+        }
+
+
+        /// <summary>
+        /// Get the list of shapes.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the body is not valid.
+        /// </exception>
+        public IReadOnlyList<Shape> Shapes
+        {
+            get
+            {
+                CheckValidation();
+                return _shapes;
+            }
+        }
+
+        public void AddShape(Shape shape)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveShape(Shape shape)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override sealed void DoDispose()
         {
             throw new NotImplementedException();
         }

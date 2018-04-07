@@ -78,6 +78,18 @@ namespace ChipmunkX
             }
         }
 
+
+        public void AddBody(Body body)
+        {
+
+        }
+
+
+        public void RemoveBody(Body body)
+        {
+
+        }
+
         protected override void DoDispose()
         {
             throw new NotImplementedException();

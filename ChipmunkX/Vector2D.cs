@@ -35,15 +35,9 @@ namespace ChipmunkX
 
         public double Angle => Math.Atan2(Y, X);
 
-        public Vector2D To(Vector2D vector)
-        {
-            return vector - this;
-        }
+        public double Cross(Vector2D vector) => Cross(this, vector);
 
-        public double Cross(Vector2D vector)
-        {
-            return this.X * vector.Y - this.Y * vector.X;
-        }
+        public static double Cross(Vector2D left, Vector2D right) => left.X * right.Y - left.Y * right.X;
 
         public static implicit operator cpVect(Vector2D vector) => new cpVect(vector.X, vector.Y);
         public static implicit operator Vector2D(cpVect vector) => new Vector2D(vector.x, vector.y);
@@ -63,16 +57,8 @@ namespace ChipmunkX
             return Equals((Vector2D)obj);
         }
 
-        public override int GetHashCode()
-        {
-            return X.GetHashCode() ^ Y.GetHashCode();
-        }
-
-        public bool Equals(Vector2D other)
-        {
-            return this.X == other.X && this.Y == other.Y;
-        }
-
+        public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode();
+        public bool Equals(Vector2D other) => this.X == other.X && this.Y == other.Y;
         public static bool operator ==(Vector2D left, Vector2D right) => left.Equals(right);
         public static bool operator !=(Vector2D left, Vector2D right) => !left.Equals(right);
     }

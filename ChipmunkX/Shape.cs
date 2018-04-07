@@ -154,7 +154,12 @@ namespace ChipmunkX.Shapes
         protected abstract void Create(Body body);
 
 
-
+        /// <summary>
+        /// Called when attached to a body. It will create
+        /// underlying unmanaged resources and map saved properties
+        /// to them.
+        /// </summary>
+        /// <param name="body">The body that the shape will be attached to.</param>
         internal void OnAttachToBody(Body body)
         {
             Debug.Assert(!IsValid);
@@ -168,12 +173,29 @@ namespace ChipmunkX.Shapes
             MapProperties();
         }
 
-        internal void OnDettachToBody(Body body)
+
+        /// <summary>
+        /// Called when detached to a body. It will free underlying
+        /// unmanaged resources.
+        /// </summary>
+        /// <param name="body">
+        /// The body that the shape will be detached from.
+        /// </param>
+        internal void OnDetachFromBody(Body body)
         {
             Debug.Assert(IsValid);
 
             ShapeFuncs.cpShapeFree(_ptr);
             _body = null;
+        }
+
+
+        protected override sealed void DoDispose()
+        {
+            // If the _ptr is not zero, then the shape must be attached
+            // to a body. Just detach from the body and the unmanaged
+            // resources will be freed.
+            Body.RemoveShape(this);
         }
     }
 
@@ -248,7 +270,10 @@ namespace ChipmunkX.Shapes
         /// Thrown when the vertices don't satisfy the requirements.
         /// Get more message from exception.
         /// </exception>
-        private static void Validate(Vector2D[] vertices)
+        /// <remarks>
+        /// Copied and modified from dyn4j.
+        /// </remarks>
+        public static void Validate(Vector2D[] vertices)
         {
             if (vertices == null)
                 throw new ArgumentNullException(nameof(vertices));
@@ -259,7 +284,7 @@ namespace ChipmunkX.Shapes
 
             // check for convex
             double area = 0.0;
-            double sign = 0.0;
+            int sign = 0;
             for (int i = 0; i < size; i++)
             {
                 Vector2D p0 = (i - 1 < 0) ? vertices[size - 1] : vertices[i - 1];
@@ -267,25 +292,19 @@ namespace ChipmunkX.Shapes
                 Vector2D p2 = (i + 1 == size) ? vertices[0] : vertices[i + 1];
                 // check for coincident vertices
                 if (p1 == p2)
-                {
                     throw new ArgumentException("Coincident vertices.");
-                }
                 // check the cross product for CCW winding
-                double cross = p0.To(p1).Cross(p1.To(p2));
-                double tsign = Math.Sign(cross);
+                double cross = Vector2D.Cross(p1 - p0, p2 - p1);
+                int tsign = Math.Sign(cross);
                 area += cross;
                 // check for convexity
-                if (sign != 0.0 && tsign != sign)
-                {
+                if (sign != 0 && tsign != sign)
                     throw new ArgumentException("Non-convex.");
-                }
                 sign = tsign;
             }
             // check for CCW
             if (area < 0.0)
-            {
                 throw new ArgumentException("Invalid winding.");
-            }
         }
     }
 }

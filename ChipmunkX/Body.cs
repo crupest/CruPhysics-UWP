@@ -51,6 +51,7 @@ namespace ChipmunkX
     /// </summary>
     public class Body : ChipmunkObject
     {
+        private Space _space = null;
         private List<Shape> _shapes = new List<Shape>();
 
 
@@ -97,6 +98,12 @@ namespace ChipmunkX
             }
         }
 
+        /// <summary>
+        /// Get the space that the body is attached to.
+        /// Return null if the body hasn't been attached to any space.
+        /// </summary>
+        public Space Space => _space;
+
 
         /// <summary>
         /// Get the list of shapes.
@@ -113,19 +120,75 @@ namespace ChipmunkX
             }
         }
 
+
+        /// <summary>
+        /// Add a shape to the body.
+        /// </summary>
+        /// <param name="shape">The shape to add.</param>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the shape is already attached to a body.
+        /// </exception>
         public void AddShape(Shape shape)
         {
-            throw new NotImplementedException();
+            if (shape.Body != null)
+                throw new InvalidOperationException(
+                    "Shape is already attached to a body.");
+
+            _shapes.Add(shape);
+            shape.OnAttachToBody(this);
+
+            if (Space != null)
+                SpaceFuncs.cpSpaceAddShape(Space._ptr, shape._ptr);
         }
 
+
+        /// <summary>
+        /// Remove a shape from the body.
+        /// </summary>
+        /// <param name="shape">The shape to remove.</param>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the shape is not attached to this body.
+        /// </exception>
         public void RemoveShape(Shape shape)
         {
-            throw new NotImplementedException();
+            if (shape.Body != this)
+                throw new InvalidOperationException(
+                    "The shape is not attached to this body.");
+
+            if (Space != null)
+                SpaceFuncs.cpSpaceRemoveShape(Space._ptr, shape._ptr);
+
+            shape.OnDetachFromBody(this);
+
+            _shapes.Remove(shape);
         }
+
+
+        /// <summary>
+        /// Remove all shape from the body.
+        /// </summary>
+        public void ClearShape()
+        {
+            foreach (var shape in _shapes)
+            {
+                if (Space != null)
+                    SpaceFuncs.cpSpaceRemoveShape(Space._ptr, shape._ptr);
+
+                shape.OnDetachFromBody(this);
+            }
+
+            _shapes.Clear();
+        }
+
 
         protected override sealed void DoDispose()
         {
-            throw new NotImplementedException();
+            ClearShape();
+
+            if (Space != null)
+                Space.RemoveBody(this);
+
+            BodyFuncs.cpBodyFree(_ptr);
         }
     }
 }

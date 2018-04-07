@@ -79,20 +79,72 @@ namespace ChipmunkX
         }
 
 
+        /// <summary>
+        /// Add a body to the space.
+        /// </summary>
+        /// <param name="body">The body to add.</param>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the body is already attached to a space.
+        /// </exception>
         public void AddBody(Body body)
         {
+            if (body.Space != null)
+                throw new InvalidOperationException(
+                    "The body is already attached to a space.");
 
+            _bodies.Add(body);
+
+            SpaceFuncs.cpSpaceAddBody(_ptr, body._ptr);
+            foreach (var shape in body.Shapes)
+                SpaceFuncs.cpSpaceAddShape(_ptr, shape._ptr);
+
+            body.OnAttachFromSpace(this);
         }
 
 
+        /// <summary>
+        /// Remove a body from the space.
+        /// </summary>
+        /// <param name="body">The body to remove.</param>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the body is not attached to this space.
+        /// </exception>
         public void RemoveBody(Body body)
         {
+            if (body.Space != this)
+                throw new InvalidOperationException(
+                    "The body is not attached to this space.");
 
+            foreach (var shape in body.Shapes)
+                SpaceFuncs.cpSpaceRemoveShape(_ptr, shape._ptr);
+            SpaceFuncs.cpSpaceRemoveBody(_ptr, body._ptr);
+
+            body.OnDetachFromSpace(this);
+
+            _bodies.Remove(body);
+        }
+
+        /// <summary>
+        /// Remove all bodies from the space.
+        /// </summary>
+        public void ClearBody()
+        {
+            foreach (var body in _bodies)
+            {
+                foreach (var shape in body.Shapes)
+                    SpaceFuncs.cpSpaceRemoveShape(_ptr, shape._ptr);
+                SpaceFuncs.cpSpaceRemoveBody(_ptr, body._ptr);
+
+                body.OnDetachFromSpace(this);
+            }
+
+            _bodies.Clear();
         }
 
         protected override void DoDispose()
         {
-            throw new NotImplementedException();
+            ClearBody();
+            SpaceFuncs.cpSpaceFree(_ptr);
         }
     }
 }

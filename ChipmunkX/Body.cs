@@ -165,7 +165,7 @@ namespace ChipmunkX
 
 
         /// <summary>
-        /// Remove all shape from the body.
+        /// Remove all shapes from the body.
         /// </summary>
         public void ClearShape()
         {
@@ -178,6 +178,18 @@ namespace ChipmunkX
             }
 
             _shapes.Clear();
+        }
+
+
+        internal void OnAttachFromSpace(Space space)
+        {
+            _space = space;
+        }
+
+
+        internal void OnDetachFromSpace(Space space)
+        {
+            _space = null;
         }
 
 

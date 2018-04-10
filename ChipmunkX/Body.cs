@@ -121,6 +121,119 @@ namespace ChipmunkX
         }
 
 
+        public double Mass
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetMass(_ptr);
+            }
+        }
+
+
+        public Vector2D CenterOfGravity
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetCenterOfGravity(_ptr);
+            }
+        }
+
+
+        public double Moment
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetMoment(_ptr);
+            }
+        }
+
+
+        public Vector2D Position
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetPosition(_ptr);
+            }
+            set
+            {
+                CheckValidation();
+                BodyFuncs.cpBodySetPosition(_ptr, value);
+            }
+        }
+
+
+        public double Angle
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetAngle(_ptr);
+            }
+            set
+            {
+                CheckValidation();
+                BodyFuncs.cpBodySetAngle(_ptr, value);
+            }
+        }
+
+
+        public Vector2D Force
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetForce(_ptr);
+            }
+        }
+
+
+        public double Torque
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetTorque(_ptr);
+            }
+        }
+
+
+        public Vector2D Velocity
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetVelocity(_ptr);
+            }
+        }
+
+
+        public double AngularVelocity
+        {
+            get
+            {
+                CheckValidation();
+                return BodyFuncs.cpBodyGetAngularVelocity(_ptr);
+            }
+        }
+
+
+        public Vector2D WorldToLocal(Vector2D point)
+        {
+            CheckValidation();
+            return BodyFuncs.cpBodyWorldToLocal(_ptr, point);
+        }
+
+
+        public Vector2D LocalToWorld(Vector2D point)
+        {
+            CheckValidation();
+            return BodyFuncs.cpBodyLocalToWorld(_ptr, point);
+        }
+
         /// <summary>
         /// Add a shape to the body.
         /// </summary>

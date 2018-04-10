@@ -2,7 +2,7 @@
 
 using ChipmunkX.Native;
 
-namespace CruPhysicsUnitTest.UnitTest
+namespace CruPhysicsUnitTest.UnitTests.ChipmunkX
 {
     [Test]
     public class BodyFuncsUnitTest

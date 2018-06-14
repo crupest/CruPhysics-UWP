@@ -51,7 +51,7 @@ namespace ChipmunkX
     /// </summary>
     public class Body : ChipmunkObject
     {
-        private Space _space = null;
+        internal Space _space = null;
         private List<Shape> _shapes = new List<Shape>();
 
 
@@ -292,19 +292,6 @@ namespace ChipmunkX
 
             _shapes.Clear();
         }
-
-
-        internal void OnAttachFromSpace(Space space)
-        {
-            _space = space;
-        }
-
-
-        internal void OnDetachFromSpace(Space space)
-        {
-            _space = null;
-        }
-
 
         protected override sealed void DoDispose()
         {

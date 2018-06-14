@@ -19,7 +19,7 @@ namespace ChipmunkX.Shapes
     /// </summary>
     public abstract class Shape : ChipmunkObject
     {
-        private Body _body = null;
+        internal Body _body = null;
 
         private readonly ShapeType _shapeType;
 
@@ -103,6 +103,9 @@ namespace ChipmunkX.Shapes
             get => _mass;
             set
             {
+                if (value < 0.0)
+                    throw new ArgumentOutOfRangeException(
+                        nameof(value), value, "Mass can't be less than 0.");
                 _mass = value;
                 if (IsValid)
                 {

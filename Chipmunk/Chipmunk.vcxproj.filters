@@ -202,9 +202,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\CopyDll.bat">
-      <Filter>Scripts</Filter>
-    </None>
-  </ItemGroup>
 </Project>

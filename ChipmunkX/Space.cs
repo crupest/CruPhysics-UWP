@@ -92,13 +92,12 @@ namespace ChipmunkX
                 throw new InvalidOperationException(
                     "The body is already attached to a space.");
 
-            _bodies.Add(body);
-
             SpaceFuncs.cpSpaceAddBody(_ptr, body._ptr);
             foreach (var shape in body.Shapes)
                 SpaceFuncs.cpSpaceAddShape(_ptr, shape._ptr);
 
-            body.OnAttachFromSpace(this);
+            body._space = this;
+            _bodies.Add(body);
         }
 
 
@@ -119,8 +118,7 @@ namespace ChipmunkX
                 SpaceFuncs.cpSpaceRemoveShape(_ptr, shape._ptr);
             SpaceFuncs.cpSpaceRemoveBody(_ptr, body._ptr);
 
-            body.OnDetachFromSpace(this);
-
+            body._space = null;
             _bodies.Remove(body);
         }
 
@@ -134,8 +132,7 @@ namespace ChipmunkX
                 foreach (var shape in body.Shapes)
                     SpaceFuncs.cpSpaceRemoveShape(_ptr, shape._ptr);
                 SpaceFuncs.cpSpaceRemoveBody(_ptr, body._ptr);
-
-                body.OnDetachFromSpace(this);
+                body._space = null;
             }
 
             _bodies.Clear();

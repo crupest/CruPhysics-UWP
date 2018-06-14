@@ -91,9 +91,6 @@
     <ClCompile Include="src\cpSpatialIndex.c" />
     <ClCompile Include="src\cpSweep1D.c" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\CopyDll.bat" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{263436a2-00cc-41a9-90ea-e213aeaff2f7}</ProjectGuid>
     <Keyword>DynamicLibrary</Keyword>

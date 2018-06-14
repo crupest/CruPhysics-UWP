@@ -19,7 +19,7 @@ namespace ChipmunkX
 
         ~ChipmunkObject()
         {
-            _DoDispose();
+            CheckAndDoDispose();
         }
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace ChipmunkX
         /// set <see cref="_ptr"/> to <see cref="IntPtr.Zero"/>
         /// when <see cref="_ptr"/> is not zero.
         /// </summary>
-        private void _DoDispose()
+        private void CheckAndDoDispose()
         {
-            if (_ptr != IntPtr.Zero)
+            if (IsValid)
             {
                 DoDispose();
                 _ptr = IntPtr.Zero;
@@ -68,7 +68,7 @@ namespace ChipmunkX
         /// </remarks>
         public void Dispose()
         {
-            _DoDispose();
+            CheckAndDoDispose();
             GC.SuppressFinalize(this);
         }
 

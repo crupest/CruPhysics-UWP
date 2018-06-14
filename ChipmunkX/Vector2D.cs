@@ -8,26 +8,15 @@ namespace ChipmunkX
     {
         public static readonly Vector2D Zero = new Vector2D();
 
-        private double _x;
-        private double _y;
-
         public Vector2D(double x, double y)
         {
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
         }
 
-        public double X
-        {
-            get => _x;
-            set => _x = value;
-        }
+        public double X { get; set; }
 
-        public double Y
-        {
-            get => _y;
-            set => _y = value;
-        }
+        public double Y { get; set; }
 
         public double LengthSquared => X * X + Y * Y;
 

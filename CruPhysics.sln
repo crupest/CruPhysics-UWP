@@ -4,10 +4,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CruPhysics", "CruPhysics\CruPhysics.csproj", "{246AA5D5-FA63-4960-A02A-E238A1E8ED4F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{63820211-B472-4AD1-8DFC-867A14263723} = {63820211-B472-4AD1-8DFC-867A14263723}
+		{263436A2-00CC-41A9-90EA-E213AEAFF2F7} = {263436A2-00CC-41A9-90EA-E213AEAFF2F7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChipmunkX", "ChipmunkX\ChipmunkX.csproj", "{63820211-B472-4AD1-8DFC-867A14263723}"
+	ProjectSection(ProjectDependencies) = postProject
+		{263436A2-00CC-41A9-90EA-E213AEAFF2F7} = {263436A2-00CC-41A9-90EA-E213AEAFF2F7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CruPhysicsUnitTest", "CruPhysicsUnitTest\CruPhysicsUnitTest.csproj", "{D126EE37-EFF9-4052-B874-158C9FE6CFDB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{263436A2-00CC-41A9-90EA-E213AEAFF2F7} = {263436A2-00CC-41A9-90EA-E213AEAFF2F7}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chipmunk", "Chipmunk\Chipmunk.vcxproj", "{263436A2-00CC-41A9-90EA-E213AEAFF2F7}"
 EndProject

@@ -25,8 +25,10 @@ namespace ChipmunkX
         public double Angle => Math.Atan2(Y, X);
 
         public double Cross(Vector2D vector) => Cross(this, vector);
+        public double Distance(Vector2D vector) => Distance(this, vector);
 
         public static double Cross(Vector2D left, Vector2D right) => left.X * right.Y - left.Y * right.X;
+        public static double Distance(Vector2D left, Vector2D right) => (left - right).Length
 
         public static implicit operator cpVect(Vector2D vector) => new cpVect(vector.X, vector.Y);
         public static implicit operator Vector2D(cpVect vector) => new Vector2D(vector.x, vector.y);

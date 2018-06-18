@@ -216,6 +216,8 @@ namespace ChipmunkX.Shapes
         public Circle(Vector2D center, double radius)
             : base(ShapeType.Circle)
         {
+            if (radius <= 0.0)
+                throw new ArgumentOutOfRangeException(nameof(radius), radius, "Radius must be greater than 0.");
             Center = center;
             Radius = radius;
             _area = MomentAreaFuncs.cpAreaForCircle(0.0, radius);
@@ -337,6 +339,36 @@ namespace ChipmunkX.Shapes
         {
             _ptr = ShapeFuncs.cpPolyShapeNewRaw(body._ptr, Vertices.Count,
                 (from vertex in Vertices select (cpVect)vertex).ToArray(), Radius);
+        }
+    }
+
+    class Segment : Shape
+    {
+        private readonly double _area;
+
+        public Segment(Vector2D vertex1, Vector2D vertex2, double radius)
+            : base(ShapeType.Segment)
+        {
+            if (vertex1 == vertex2)
+            if (radius <= 0.0)
+                throw new ArgumentOutOfRangeException(nameof(radius), radius, "Radius must be greater than 0.");
+
+            Vertex1 = vertex1;
+            Vertex2 = vertex2;
+            Length = Vector2D.Distance(vertex1, vertex2);
+            Radius = radius;
+            _area = MomentAreaFuncs.cpAreaForSegment(vertex1, vertex2, radius);
+        }
+
+        public Vector2D Vertex1 { get; }
+        public Vector2D Vertex2 { get; }
+        public double Length { get; }
+        public double Radius { get; }
+        public override double Area => _area;
+
+        protected override void Create(Body body)
+        {
+            _ptr = ShapeFuncs.cpSegmentShapeNew(body._ptr, Vertex1, Vertex2, Radius);
         }
     }
 }

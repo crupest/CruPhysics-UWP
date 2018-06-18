@@ -10,7 +10,7 @@ namespace ChipmunkX
     /// </summary>
     public class Space : ChipmunkObject
     {
-        private List<Body> _bodies = new List<Body>();
+        private readonly List<Body> _bodies = new List<Body>();
 
         /// <summary>
         /// Create a empty space with gravity of (0, 0) and damping of 1.0.

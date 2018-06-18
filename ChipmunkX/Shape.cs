@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+using System.Linq;
 using ChipmunkX.Native;
 
 namespace ChipmunkX.Shapes
@@ -20,9 +20,6 @@ namespace ChipmunkX.Shapes
     public abstract class Shape : ChipmunkObject
     {
         internal Body _body = null;
-
-        private readonly ShapeType _shapeType;
-
         private double _elasticity = 0.0;
         private double _friction = 0.0;
         private Vector2D _surfaceVelocity = new Vector2D();
@@ -30,14 +27,14 @@ namespace ChipmunkX.Shapes
 
         protected Shape(ShapeType shapeType)
         {
-            _shapeType = shapeType;
+            ShapeType = shapeType;
         }
 
 
         /// <summary>
         /// Get the type of the shape.
         /// </summary>
-        public ShapeType ShapeType => _shapeType;
+        public ShapeType ShapeType { get; }
 
 
         /// <summary>
@@ -189,6 +186,7 @@ namespace ChipmunkX.Shapes
             Debug.Assert(IsValid);
 
             ShapeFuncs.cpShapeFree(_ptr);
+            _ptr = IntPtr.Zero;
             _body = null;
         }
 
@@ -208,8 +206,6 @@ namespace ChipmunkX.Shapes
     /// </summary>
     public class Circle : Shape
     {
-        private readonly Vector2D _center;
-        private readonly double _radius;
         private readonly double _area;
 
         /// <summary>
@@ -220,8 +216,8 @@ namespace ChipmunkX.Shapes
         public Circle(Vector2D center, double radius)
             : base(ShapeType.Circle)
         {
-            _center = center;
-            _radius = radius;
+            Center = center;
+            Radius = radius;
             _area = MomentAreaFuncs.cpAreaForCircle(0.0, radius);
         }
 
@@ -239,13 +235,13 @@ namespace ChipmunkX.Shapes
         /// <summary>
         /// Get the center.
         /// </summary>
-        public Vector2D Center => _center;
+        public Vector2D Center { get; }
 
 
         /// <summary>
         /// Get the radius.
         /// </summary>
-        public double Radius => _radius;
+        public double Radius { get; }
 
 
         /// <summary>
@@ -256,7 +252,7 @@ namespace ChipmunkX.Shapes
 
         protected override sealed void Create(Body body)
         {
-            _ptr = ShapeFuncs.cpCircleShapeNew(body._ptr, _radius, _center);
+            _ptr = ShapeFuncs.cpCircleShapeNew(body._ptr, Radius, Center);
         }
     }
 
@@ -308,6 +304,39 @@ namespace ChipmunkX.Shapes
             // check for CCW
             if (area < 0.0)
                 throw new ArgumentException("Invalid winding.");
+        }
+    }
+
+    public class Polygon : Shape
+    {
+        private readonly double _area;
+
+        public Polygon(params Vector2D[] vertices)
+            : this(0.0, vertices)
+        {
+
+        }
+
+        public Polygon(double radius, params Vector2D[] vertices)
+            : base(ShapeType.Polygon)
+        {
+            PolygonHelper.Validate(vertices);
+            Vertices = vertices.ToList();
+            Radius = radius;
+            _area = MomentAreaFuncs.cpAreaForPoly(Vertices.Count,
+                (from vertex in Vertices select (cpVect)vertex).ToArray(), Radius);
+        }
+
+        public IReadOnlyList<Vector2D> Vertices { get; }
+
+        public double Radius { get; }
+
+        public override double Area => _area;
+
+        protected override void Create(Body body)
+        {
+            _ptr = ShapeFuncs.cpPolyShapeNewRaw(body._ptr, Vertices.Count,
+                (from vertex in Vertices select (cpVect)vertex).ToArray(), Radius);
         }
     }
 }

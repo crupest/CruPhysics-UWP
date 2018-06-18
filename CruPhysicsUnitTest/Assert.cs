@@ -67,15 +67,19 @@ namespace CruPhysicsUnitTest
 
         public static void ExpectException<TException>(Action block) where TException : Exception
         {
+            bool notThrow = false;
             try
             {
                 block();
-                throw new ExpectedExceptionNotThrowException<TException>();
+                notThrow = true;
             }
             catch (TException)
             {
 
             }
+
+            if (notThrow)
+                throw new ExpectedExceptionNotThrowException<TException>();
         }
     }
 }

@@ -104,6 +104,7 @@
     <Compile Include="TestAttributes.cs" />
     <Compile Include="UnitTests\ChipmunkX\ChipmunkObjectUnitTest.cs" />
     <Compile Include="UnitTests\ChipmunkX\NativeFuncsUnitTest.cs" />
+    <Compile Include="UnitTests\ChipmunkX\ShapeUnitTest.cs" />
     <Compile Include="ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

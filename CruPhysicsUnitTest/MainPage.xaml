@@ -15,6 +15,40 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="40"/>
         </Style>
+        <Style x:Key="TestListViewItemContainerStyle" TargetType="ListViewItem">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" 
+                                               ContentMargin="{TemplateBinding Padding}" 
+                                               CheckMode="Inline" 
+                                               ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                               CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" 
+                                               DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" 
+                                               DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" 
+                                               DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" 
+                                               DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" 
+                                               FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" 
+                                               FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" 
+                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                               PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                               PressedBackground="White"
+                                               PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                                               PointerOverBackground="White"
+                                               ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" 
+                                               SelectedPressedBackground="White"
+                                               SelectionCheckMarkVisualEnabled="True" 
+                                               SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                               SelectedPointerOverBackground="White" 
+                                               SelectedBackground="White" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -55,7 +89,8 @@
         </Grid>
 
         <Border Grid.Row="0" Grid.Column="1">
-            <ListView Name="TestList" ItemsSource="{Binding Tests}">
+            <ListView Name="TestList" ItemsSource="{Binding Tests}"
+                      ItemContainerStyle="{StaticResource TestListViewItemContainerStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="viewModel:TestItemViewModel">
                         <Grid Background="{x:Bind ItemBackground, Mode=OneWay}">
@@ -66,13 +101,6 @@
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Padding" Value="0"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
             </ListView>
         </Border>
 

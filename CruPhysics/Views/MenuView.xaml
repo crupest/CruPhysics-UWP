@@ -12,7 +12,6 @@
             <Grid>
                 <Button AutomationProperties.Name="{Binding DisplayName}"
                         Command="{x:Bind Path=Command}"
-                        Style="{StaticResource SplitViewMenuButtonStyle}"
                         ToolTipService.ToolTip="{x:Bind Path=DisplayName}">
                     <StackPanel Orientation="Horizontal">
                         <FontIcon Glyph="{x:Bind Path=FontIcon}" Style="{StaticResource SplitViewMenuFontIconStyle}" />

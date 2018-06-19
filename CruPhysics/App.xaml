@@ -8,7 +8,7 @@
     <prismAutofac:PrismAutofacApplication.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Themes/SplitViewSampleStyles.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Themes/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </prismAutofac:PrismAutofacApplication.Resources>

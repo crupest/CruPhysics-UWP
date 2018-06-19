@@ -25,11 +25,7 @@ namespace CruPhysics.Views
 
         private void MenuControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, new PropertyChangedEventArgs(nameof(ConcreteDataContext)));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConcreteDataContext)));
         }
     }
 }

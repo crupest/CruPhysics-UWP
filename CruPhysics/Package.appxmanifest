@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="cf1c4bf0-e600-4dbe-bec5-3c9e0a8ed706"
+    Name="6ad81d40-9db3-4a4f-a616-842f1752ef5c"
     Publisher="CN=crupe"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="cf1c4bf0-e600-4dbe-bec5-3c9e0a8ed706" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="6ad81d40-9db3-4a4f-a616-842f1752ef5c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>CruPhysics</DisplayName>

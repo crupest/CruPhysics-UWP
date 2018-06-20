@@ -199,7 +199,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy $(TargetPath) $(SolutionDir)\CruPhysics
-copy $(TargetPath) $(SolutionDir)\CruPhysicsUnitTest</Command>
+copy $(TargetPath) $(SolutionDir)\ChipmunkX.Test</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Autofac;
-using CruPhysics.Services;
 using Prism.Autofac.Windows;
 using Prism.Windows.AppModel;
 using Windows.ApplicationModel.Activation;
@@ -21,7 +20,6 @@ namespace CruPhysics
         {
             base.ConfigureContainer(builder);
             builder.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
-            builder.RegisterInstance<ISpaceService>(new SpaceService());
         }
 
         protected override UIElement CreateShell(Frame rootFrame)

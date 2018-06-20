@@ -98,7 +98,12 @@
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Utilities\CollectionChangeInfo.cs" />
+    <Compile Include="ViewModels\BodyViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Shape.cs" />
+    <Compile Include="ViewModels\SpaceViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

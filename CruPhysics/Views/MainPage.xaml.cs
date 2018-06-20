@@ -29,11 +29,7 @@ namespace CruPhysics.Views
 
         private void MainPage_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, new PropertyChangedEventArgs(nameof(ConcreteDataContext)));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConcreteDataContext)));
         }
     }
 }

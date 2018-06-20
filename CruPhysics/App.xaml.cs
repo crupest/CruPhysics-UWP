@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Autofac;
+using CruPhysics.Events;
+using CruPhysics.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,7 +33,15 @@ namespace CruPhysics
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            var containerBuilder = new ContainerBuilder();
+
+            containerBuilder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
+
+            Container = containerBuilder.Build();
         }
+
+        public IContainer Container { get; }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

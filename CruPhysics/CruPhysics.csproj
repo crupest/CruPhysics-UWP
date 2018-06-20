@@ -147,12 +147,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChipmunkX\ChipmunkX.csproj">
-      <Project>{63820211-b472-4ad1-8dfc-867a14263723}</Project>
-      <Name>ChipmunkX</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="AppShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,6 +170,12 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChipmunkX\ChipmunkX.csproj">
+      <Project>{63820211-b472-4ad1-8dfc-867a14263723}</Project>
+      <Name>ChipmunkX</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

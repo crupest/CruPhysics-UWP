@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Autofac;
+using CruPhysics.Services;
 using Prism.Autofac.Windows;
 using Prism.Windows.AppModel;
 using Windows.ApplicationModel.Activation;
@@ -23,6 +21,7 @@ namespace CruPhysics
         {
             base.ConfigureContainer(builder);
             builder.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+            builder.RegisterInstance<ISpaceService>(new SpaceService());
         }
 
         protected override UIElement CreateShell(Frame rootFrame)
@@ -34,6 +33,7 @@ namespace CruPhysics
 
         protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
+            NavigationService.Navigate(PageTokens.Main.ToString(), null);
             return Task.FromResult(true);
         }
     }

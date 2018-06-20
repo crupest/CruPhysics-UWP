@@ -39,8 +39,7 @@ namespace CruPhysics.ViewModels
             if (_sessionStateService.SessionState.ContainsKey(CurrentPageTokenKey))
             {
                 // Resuming, so update the menu to reflect the current page correctly
-                PageTokens currentPageToken;
-                if (Enum.TryParse(_sessionStateService.SessionState[CurrentPageTokenKey].ToString(), out currentPageToken))
+                if (Enum.TryParse(_sessionStateService.SessionState[CurrentPageTokenKey].ToString(), out PageTokens currentPageToken))
                 {
                     UpdateCanNavigateLookup(currentPageToken);
                     RaiseCanExecuteChanged();
@@ -52,8 +51,7 @@ namespace CruPhysics.ViewModels
 
         private void OnNavigationStateChanged(NavigationStateChangedEventArgs args)
         {
-            PageTokens currentPageToken;
-            if (Enum.TryParse(args.Sender.Content.GetType().Name.Replace("Page", string.Empty), out currentPageToken))
+            if (Enum.TryParse(args.Sender.Content.GetType().Name.Replace("Page", string.Empty), out PageTokens currentPageToken))
             {
                 _sessionStateService.SessionState[CurrentPageTokenKey] = currentPageToken.ToString();
                 UpdateCanNavigateLookup(currentPageToken);
